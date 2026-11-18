@@ -11,7 +11,13 @@ function lastActiveLabel(iso: string) {
   return `${d} days ago`;
 }
 
-export function StudentList({ students }: { students: Student[] }) {
+export function StudentList({
+  students,
+  onOpen,
+}: {
+  students: Student[];
+  onOpen: (s: Student) => void;
+}) {
   const [q, setQ] = useState("");
   const [onlyFlagged, setOnlyFlagged] = useState(false);
   const flaggedCount = students.filter((s) => isInactive(s.lastActive)).length;
@@ -31,6 +37,7 @@ export function StudentList({ students }: { students: Student[] }) {
         <div>
           <p className="eyebrow">Student list</p>
           <h2 className="mt-1 text-2xl font-semibold">Who's on track</h2>
+          <p className="mt-1 text-xs text-muted-foreground">Tap a student to see their progress.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -77,13 +84,26 @@ export function StudentList({ students }: { students: Student[] }) {
                 .join("")
                 .slice(0, 2);
               return (
-                <tr key={s.id} className="border-b border-border/60 last:border-0">
+                <tr
+                  key={s.id}
+                  onClick={() => onOpen(s)}
+                  className="cursor-pointer border-b border-border/60 transition-colors last:border-0 hover:bg-background/70"
+                >
                   <td className="py-3">
                     <div className="flex items-center gap-3">
                       <div className="hidden size-8 shrink-0 place-items-center rounded-full bg-secondary text-xs font-bold sm:grid">
                         {initials}
                       </div>
-                      <span className="font-semibold">{s.name}</span>
+                      <button
+                        type="button"
+                        className="text-left font-semibold underline-offset-4 hover:underline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onOpen(s);
+                        }}
+                      >
+                        {s.name}
+                      </button>
                     </div>
                   </td>
                   <td className="py-3">

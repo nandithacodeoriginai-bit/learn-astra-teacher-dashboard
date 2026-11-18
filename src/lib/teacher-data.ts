@@ -163,3 +163,56 @@ export const doubts: Doubt[] = [
   { id: "d3", student: "Diya Nair", className: "10 A", topic: "Redox", question: "How do I find which substance is oxidised in this reaction?", ago: "3 hr", hasPhoto: true },
   { id: "d4", student: "Gagan Gowda", className: "10 Kannada Medium", topic: "Mirrors", question: "Is the focal length of a concave mirror negative always?", ago: "Yesterday", hasPhoto: false },
 ];
+
+// ---- Student detail (per-student drill-down) ----
+export type StudentDetail = {
+  trend: { test: string; score: number }[];
+  topics: { topic: string; accuracy: number }[];
+  testsTaken: number;
+  streak: number;
+};
+
+const topicsByClass: Record<string, string[]> = {
+  "cbse-10a": ["Chemical reactions", "Acids & bases", "Life processes", "Light", "Electricity"],
+  "neet-b": ["Genetics", "Plant growth", "Excretion", "Cell biology", "Ecology"],
+  "kcet-1": ["Electrostatics", "Current electricity", "Magnetism", "Optics", "Modern physics"],
+  "state-10k": ["Light", "Acids & bases", "Electricity", "Metals", "Life processes"],
+};
+
+function hash(s: string) {
+  let h = 7;
+  for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) % 100_003;
+  return h;
+}
+
+const clamp = (n: number) => Math.max(5, Math.min(99, Math.round(n)));
+
+export function getStudentDetail(student: Student, classId: string): StudentDetail {
+  const rnd = seeded(hash(student.id));
+  const trend = ["Mock 1", "Mock 2", "Mock 3", "Mock 4", "Latest"].map((test, i, arr) => ({
+    test,
+    score: i === arr.length - 1 ? student.score : clamp(student.score - (arr.length - 1 - i) * (rnd() * 6 - 1.5)),
+  }));
+  const topics = (topicsByClass[classId] ?? []).map((topic) => ({
+    topic,
+    accuracy: clamp(student.accuracy + (rnd() * 40 - 22)),
+  }));
+  topics.sort((a, b) => a.accuracy - b.accuracy);
+  const inactiveDays = daysSince(student.lastActive);
+  return {
+    trend,
+    topics,
+    testsTaken: 6 + Math.floor(rnd() * 10),
+    streak: inactiveDays > 0 ? 0 : 1 + Math.floor(rnd() * 14),
+  };
+}
+
+// ---- Notifications ----
+export type Notice = { id: string; title: string; body: string; ago: string };
+
+export const notices: Notice[] = [
+  { id: "n1", title: "NEET Full Mock #7 is live", body: "41 of 58 students have started.", ago: "20 min" },
+  { id: "n2", title: "Content approved", body: "Genetics one-page summary is now published.", ago: "2 hr" },
+  { id: "n3", title: "3 students inactive", body: "NEET Batch B has 3 students with no practice in over 7 days.", ago: "Today" },
+  { id: "n4", title: "Test tomorrow", body: "Carbon Compounds — Ch. 4 for 10 A starts at 10:00.", ago: "Today" },
+];

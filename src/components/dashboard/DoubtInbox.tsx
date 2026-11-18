@@ -1,15 +1,40 @@
-import { Camera, CheckCircle2, MessageSquareReply } from "lucide-react";
+import { useState } from "react";
+import { Camera, CheckCircle2, MessageSquareReply, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import type { Doubt } from "@/lib/teacher-data";
 
 export function DoubtInbox({ doubts, onAnswer }: { doubts: Doubt[]; onAnswer: (id: string) => void }) {
+  const [current, setCurrent] = useState<Doubt | null>(null);
+  const [reply, setReply] = useState("");
+  const [answered, setAnswered] = useState(0);
+
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!current || !reply.trim()) return;
+    onAnswer(current.id);
+    setAnswered((n) => n + 1);
+    toast.success(`Answer sent to ${current.student}`, { description: "It also appears in the class doubt forum." });
+    setCurrent(null);
+    setReply("");
+  };
+
   return (
     <section id="doubts" className="panel scroll-mt-6 flex flex-col p-6">
       <div className="flex items-end justify-between">
         <div>
           <p className="eyebrow">Doubt inbox</p>
           <h2 className="mt-1 text-2xl font-semibold">Unanswered</h2>
+          {answered > 0 && <p className="mt-1 text-xs text-success">{answered} answered today</p>}
         </div>
         <span className="font-display text-4xl font-semibold">{doubts.length}</span>
       </div>
@@ -40,13 +65,7 @@ export function DoubtInbox({ doubts, onAnswer }: { doubts: Doubt[]; onAnswer: (i
                 ) : (
                   <span />
                 )}
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    onAnswer(d.id);
-                    toast.success(`Answer sent to ${d.student}`);
-                  }}
-                >
+                <Button size="sm" onClick={() => setCurrent(d)}>
                   <MessageSquareReply /> Answer
                 </Button>
               </div>
@@ -54,6 +73,45 @@ export function DoubtInbox({ doubts, onAnswer }: { doubts: Doubt[]; onAnswer: (i
           ))}
         </ul>
       )}
+
+      <Dialog open={!!current} onOpenChange={(o) => !o && setCurrent(null)}>
+        <DialogContent className="rounded-3xl bg-card">
+          {current && (
+            <form onSubmit={send}>
+              <DialogHeader>
+                <DialogTitle className="font-display text-2xl">Answer {current.student}</DialogTitle>
+                <DialogDescription>
+                  {current.className} · {current.topic}
+                </DialogDescription>
+              </DialogHeader>
+              <blockquote className="mt-4 rounded-2xl bg-background p-4 text-sm leading-relaxed">
+                {current.question}
+                {current.hasPhoto && (
+                  <span className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+                    <Camera className="size-3.5" /> Student attached a photo
+                  </span>
+                )}
+              </blockquote>
+              <Textarea
+                autoFocus
+                value={reply}
+                onChange={(e) => setReply(e.target.value)}
+                placeholder="Write a clear, step-by-step answer…"
+                className="mt-4 min-h-32 bg-background"
+                aria-label="Your answer"
+              />
+              <DialogFooter className="mt-5">
+                <Button type="button" variant="ghost" onClick={() => setCurrent(null)}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!reply.trim()}>
+                  <Send /> Send answer
+                </Button>
+              </DialogFooter>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

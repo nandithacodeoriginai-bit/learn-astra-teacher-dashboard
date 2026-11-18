@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Bell, ClipboardCheck, FileDown, FileSpreadsheet, GraduationCap, MessageCircleQuestion, Search, TrendingUp } from "lucide-react";
+import { ClipboardCheck, FileDown, FileSpreadsheet, GraduationCap, MessageCircleQuestion, Search, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,8 @@ import { StudentList } from "@/components/dashboard/StudentList";
 import { TestManager } from "@/components/dashboard/TestManager";
 import { ContentManager } from "@/components/dashboard/ContentManager";
 import { DoubtInbox } from "@/components/dashboard/DoubtInbox";
+import { Notifications } from "@/components/dashboard/Notifications";
+import { StudentDetail } from "@/components/dashboard/StudentDetail";
 import {
   classes,
   contentItems,
@@ -20,7 +22,9 @@ import {
   testsByClass,
   weakTopicsByClass,
   isInactive,
+  notices,
   type ManagedTest,
+  type Student,
 } from "@/lib/teacher-data";
 
 export const Route = createFileRoute("/")({
@@ -50,6 +54,7 @@ function TeacherDashboard() {
   const [tests, setTests] = useState<ManagedTest[]>(managedTests);
   const [doubts, setDoubts] = useState(initialDoubts);
   const [active, setActive] = useState("#overview");
+  const [openStudent, setOpenStudent] = useState<Student | null>(null);
 
   const cls = classes.find((c) => c.id === classId)!;
   const students = studentsByClass[classId] ?? [];
@@ -126,10 +131,7 @@ function TeacherDashboard() {
               <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input placeholder="Search tests, topics, students" className="h-10 w-72 rounded-full bg-card pl-9" />
             </div>
-            <Button variant="outline" size="icon" className="relative size-10 bg-card" aria-label="Notifications">
-              <Bell />
-              <span className="absolute top-2 right-2.5 size-2 rounded-full bg-destructive" />
-            </Button>
+            <Notifications items={notices} />
           </div>
         </header>
 
@@ -170,16 +172,18 @@ function TeacherDashboard() {
           </div>
           <WeakTopics topics={weak} onCreateRevision={createRevision} />
           <div className="xl:col-span-2">
-            <StudentList students={students} />
+            <StudentList students={students} onOpen={setOpenStudent} />
           </div>
           <DoubtInbox doubts={doubts} onAnswer={(id) => setDoubts((d) => d.filter((x) => x.id !== id))} />
         </div>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-3 [&>*]:min-w-0">
-          <div className="xl:col-span-2">
+        <div className="mt-6 grid gap-6 xl:grid-cols-5 [&>*]:min-w-0">
+          <div className="xl:col-span-3">
             <TestManager tests={tests} classes={classes} onChange={setTests} />
           </div>
-          <ContentManager items={contentItems} />
+          <div className="xl:col-span-2">
+            <ContentManager initialItems={contentItems} />
+          </div>
         </div>
 
         {/* Export */}
@@ -203,6 +207,13 @@ function TeacherDashboard() {
             </div>
           </div>
         </section>
+
+        <StudentDetail
+          student={openStudent}
+          classId={classId}
+          className={cls.name}
+          onClose={() => setOpenStudent(null)}
+        />
 
         <p className="mt-8 pb-4 text-center text-xs text-muted-foreground">LearnAstra · Teacher dashboard prototype</p>
       </main>
