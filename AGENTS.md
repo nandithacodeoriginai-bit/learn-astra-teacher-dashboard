@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Teacher dashboard is a frontend prototype: mock data lives in `src/lib/teacher-data.ts` with a fixed TODAY date so server and browser renders match.
+- Dashboard widgets live in `src/components/dashboard/`, one file per widget group, composed on `/`.
