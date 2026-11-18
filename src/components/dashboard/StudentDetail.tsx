@@ -5,7 +5,8 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { daysSince, getStudentDetail, isInactive, type Student } from "@/lib/teacher-data";
+import { classes, daysSince, getStudentDetail, isInactive, type Student } from "@/lib/teacher-data";
+import { CatchUpCoach } from "./CatchUpCoach";
 
 const config = { score: { label: "Score", color: "var(--chart-1)" } } satisfies ChartConfig;
 
@@ -25,7 +26,7 @@ export function StudentDetail({
 
   return (
     <Sheet open={!!student} onOpenChange={(o) => !o && onClose()}>
-      <SheetContent className="w-full overflow-y-auto bg-background sm:max-w-md">
+      <SheetContent className="w-full overflow-y-auto bg-background sm:max-w-lg">
         {student && detail && (
           <>
             <SheetHeader className="text-left">
@@ -94,6 +95,25 @@ export function StudentDetail({
               <Flame className="size-4" />
               {detail.streak > 0 ? `${detail.streak}-day practice streak` : "No current practice streak"}
             </div>
+
+            <CatchUpCoach
+              initial={{
+                name: student.name,
+                className,
+                subject: classes.find((c) => c.id === classId)?.subject ?? "",
+                track: classes.find((c) => c.id === classId)?.track ?? "",
+                latestScore: student.score,
+                accuracy: student.accuracy,
+                testsTaken: detail.testsTaken,
+                daysInactive: daysSince(student.lastActive),
+                streak: detail.streak,
+                trend: detail.trend.map((t) => t.score),
+                topics: detail.topics,
+                goal: "Next unit test",
+                hoursPerWeek: "2–4 hours",
+                teacherNotes: "",
+              }}
+            />
 
             <div className="mt-6 flex flex-wrap gap-2 pb-2">
               <Button

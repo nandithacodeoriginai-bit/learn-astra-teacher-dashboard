@@ -32,3 +32,4 @@ use the editor.
 ## Project rules
 - Teacher dashboard is a frontend prototype: mock data lives in `src/lib/teacher-data.ts` with a fixed TODAY date so server and browser renders match.
 - Dashboard widgets live in `src/components/dashboard/`, one file per widget group, composed on `/`.
+- AI calls go through Lovable AI Gateway from server-only `src/lib/ai/*.server.ts`, exposed to the UI via `*.functions.ts` server functions; shared zod schemas live in client-safe `src/lib/*.ts`. Why: keeps the key and prompts off the browser while the form and server validate the same shape.
