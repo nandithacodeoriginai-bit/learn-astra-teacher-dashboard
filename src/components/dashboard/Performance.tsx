@@ -30,7 +30,7 @@ export function ClassPerformance({ tests }: { tests: TestResult[] }) {
           <h2 className="mt-1 text-2xl font-semibold">Score distribution</h2>
         </div>
         <Select value={test.id} onValueChange={setTestId}>
-          <SelectTrigger className="w-64 rounded-full bg-background">
+          <SelectTrigger className="w-full rounded-full bg-background sm:w-64">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

@@ -4,7 +4,7 @@ import { Bell, ClipboardCheck, FileDown, FileSpreadsheet, GraduationCap, Message
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sidebar } from "@/components/dashboard/Sidebar";
+import { MobileNav, Sidebar } from "@/components/dashboard/Sidebar";
 import { ClassPicker } from "@/components/dashboard/ClassPicker";
 import { ClassPerformance, WeakTopics } from "@/components/dashboard/Performance";
 import { StudentList } from "@/components/dashboard/StudentList";
@@ -97,7 +97,7 @@ function TeacherDashboard() {
   };
 
   const exportCsv = () => {
-    const header = "Student,Latest score (%),Accuracy (%),Last active,Inactive 7+ days";
+    const header = "Student,Latest score (%),Accuracy (%),Last active,Inactive over 7 days";
     const rows = students.map(
       (s) => `"${s.name}",${s.score},${s.accuracy},${s.lastActive.slice(0, 10)},${isInactive(s.lastActive) ? "Yes" : "No"}`,
     );
@@ -116,6 +116,8 @@ function TeacherDashboard() {
       <Sidebar active={active} openDoubts={doubts.length} />
 
       <main className="min-w-0 flex-1 px-5 py-6 md:px-10 md:py-8">
+        <MobileNav active={active} openDoubts={doubts.length} />
+
         {/* Top bar */}
         <header className="flex flex-wrap items-center justify-between gap-4" data-print-hide>
           <p className="text-sm text-muted-foreground">Wednesday, 18 November 2026</p>
@@ -162,7 +164,7 @@ function TeacherDashboard() {
         </section>
 
         {/* Performance + weak topics */}
-        <div key={classId} className="rise-in mt-6 grid gap-6 xl:grid-cols-3">
+        <div key={classId} className="rise-in mt-6 grid gap-6 xl:grid-cols-3 [&>*]:min-w-0">
           <div className="xl:col-span-2">
             <ClassPerformance tests={classTests} />
           </div>
@@ -173,7 +175,7 @@ function TeacherDashboard() {
           <DoubtInbox doubts={doubts} onAnswer={(id) => setDoubts((d) => d.filter((x) => x.id !== id))} />
         </div>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-3">
+        <div className="mt-6 grid gap-6 xl:grid-cols-3 [&>*]:min-w-0">
           <div className="xl:col-span-2">
             <TestManager tests={tests} classes={classes} onChange={setTests} />
           </div>
@@ -181,7 +183,7 @@ function TeacherDashboard() {
         </div>
 
         {/* Export */}
-        <section id="export" className="panel-ink relative mt-6 scroll-mt-6 overflow-hidden p-8" data-print-hide>
+        <section id="export" className="panel-ink relative mt-6 scroll-mt-6 overflow-hidden p-6 md:p-8" data-print-hide>
           <div className="grain pointer-events-none absolute inset-0" />
           <div className="relative flex flex-wrap items-center justify-between gap-6">
             <div>
@@ -191,7 +193,7 @@ function TeacherDashboard() {
                 Scores, accuracy and activity for every student, ready for parents or management.
               </p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <Button variant="cream" size="lg" onClick={exportCsv}>
                 <FileSpreadsheet /> Download CSV
               </Button>

@@ -87,7 +87,7 @@ export function TestManager({
           <p className="eyebrow">Test manager</p>
           <h2 className="mt-1 text-2xl font-semibold">Your tests</h2>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button
             variant="soft"
             size="sm"
@@ -103,8 +103,8 @@ export function TestManager({
 
       <ul className="mt-5 divide-y divide-border/70">
         {tests.map((t) => (
-          <li key={t.id} className="flex items-center gap-4 py-3.5">
-            <div className="grid size-11 shrink-0 place-items-center rounded-2xl bg-background text-center leading-none">
+          <li key={t.id} className="flex items-center gap-3 py-3.5 sm:gap-4">
+            <div className="hidden size-11 shrink-0 place-items-center rounded-2xl bg-background text-center leading-none sm:grid">
               <span className="font-display text-lg font-semibold">{new Date(t.date).getDate()}</span>
               <span className="text-[10px] font-bold uppercase text-muted-foreground">
                 {new Date(t.date).toLocaleString("en-IN", { month: "short" })}
@@ -112,7 +112,10 @@ export function TestManager({
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate font-semibold">{t.name}</p>
-              <p className="mt-0.5 flex items-center gap-3 text-xs text-muted-foreground">
+              <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
+                <span className="sm:hidden">
+                  {new Date(t.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
+                </span>
                 <span>{className(t.classId)}</span>
                 <span className="flex items-center gap-1">
                   <CalendarDays className="size-3" /> {t.questions} Qs

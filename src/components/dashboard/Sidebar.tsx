@@ -95,3 +95,40 @@ export function Sidebar({ active, openDoubts }: { active: string; openDoubts: nu
     </aside>
   );
 }
+
+export function MobileNav({ active, openDoubts }: { active: string; openDoubts: number }) {
+  return (
+    <div className="-mx-5 -mt-6 mb-6 bg-sidebar px-5 pt-5 pb-3 text-sidebar-foreground md:-mx-10 md:-mt-8 md:px-10 lg:hidden" data-print-hide>
+      <div className="flex items-center gap-3">
+        <div className="grid size-9 place-items-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground">
+          <Sparkles className="size-4" />
+        </div>
+        <p className="font-display text-lg font-semibold">LearnAstra</p>
+        <span className="ml-auto grid size-8 place-items-center rounded-full bg-sidebar-primary font-display text-xs font-semibold text-sidebar-primary-foreground">
+          SR
+        </span>
+      </div>
+      <nav className="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
+        {nav.map((item) => {
+          const isActive = active === item.href;
+          return (
+            <a
+              key={item.href}
+              href={item.href}
+              className={
+                "flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold " +
+                (isActive
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                  : "bg-sidebar-accent text-sidebar-foreground/80")
+              }
+            >
+              <item.icon className="size-3.5" />
+              {item.label}
+              {item.href === "#doubts" && openDoubts > 0 && <span className="opacity-70">{openDoubts}</span>}
+            </a>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}

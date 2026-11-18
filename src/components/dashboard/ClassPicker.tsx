@@ -48,14 +48,16 @@ export function ClassPicker({
             <p className="relative mt-5 font-display text-2xl leading-tight font-semibold">{c.name}</p>
             <div
               className={
-                "relative mt-1 flex items-center gap-1.5 text-sm " +
+                "relative mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm " +
                 (active ? "text-primary-foreground/75" : "text-muted-foreground")
               }
             >
               <span>{c.subject}</span>
               <span>·</span>
-              <Users className="size-3.5" />
-              <span>{c.students} students</span>
+              <span className="flex items-center gap-1 whitespace-nowrap">
+                <Users className="size-3.5" />
+                {c.students} students
+              </span>
             </div>
           </button>
         );

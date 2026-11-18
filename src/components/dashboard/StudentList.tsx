@@ -32,7 +32,7 @@ export function StudentList({ students }: { students: Student[] }) {
           <p className="eyebrow">Student list</p>
           <h2 className="mt-1 text-2xl font-semibold">Who's on track</h2>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setOnlyFlagged((v) => !v)}
             aria-pressed={onlyFlagged}
@@ -64,7 +64,7 @@ export function StudentList({ students }: { students: Student[] }) {
             <tr className="border-b text-left text-xs text-muted-foreground">
               <th className="pb-3 font-semibold">Student</th>
               <th className="pb-3 font-semibold">Latest score</th>
-              <th className="pb-3 font-semibold">Accuracy</th>
+              <th className="hidden pb-3 font-semibold sm:table-cell">Accuracy</th>
               <th className="pb-3 font-semibold">Last active</th>
             </tr>
           </thead>
@@ -80,7 +80,7 @@ export function StudentList({ students }: { students: Student[] }) {
                 <tr key={s.id} className="border-b border-border/60 last:border-0">
                   <td className="py-3">
                     <div className="flex items-center gap-3">
-                      <div className="grid size-8 place-items-center rounded-full bg-secondary text-xs font-bold">
+                      <div className="hidden size-8 shrink-0 place-items-center rounded-full bg-secondary text-xs font-bold sm:grid">
                         {initials}
                       </div>
                       <span className="font-semibold">{s.name}</span>
@@ -88,7 +88,7 @@ export function StudentList({ students }: { students: Student[] }) {
                   </td>
                   <td className="py-3">
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-secondary">
+                      <div className="hidden h-1.5 w-20 overflow-hidden rounded-full bg-secondary sm:block">
                         <div
                           className={"h-full rounded-full " + (s.score < 50 ? "bg-destructive" : "bg-primary")}
                           style={{ width: `${s.score}%` }}
@@ -97,7 +97,7 @@ export function StudentList({ students }: { students: Student[] }) {
                       <span className="font-semibold tabular-nums">{s.score}%</span>
                     </div>
                   </td>
-                  <td className="py-3 tabular-nums text-muted-foreground">{s.accuracy}%</td>
+                  <td className="hidden py-3 tabular-nums text-muted-foreground sm:table-cell">{s.accuracy}%</td>
                   <td className="py-3">
                     {flagged ? (
                       <Badge variant="danger" className="gap-1">
