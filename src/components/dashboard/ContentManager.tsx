@@ -31,8 +31,7 @@ const variant: Record<ContentStatus, "warning" | "soft" | "success"> = {
 const kinds: ContentItem["kind"][] = ["Notes", "Paper", "Formula sheet"];
 const tracks: Track[] = ["CBSE", "State", "ICSE", "KCET", "NEET"];
 
-export function ContentManager({ initialItems }: { initialItems: ContentItem[] }) {
-  const [items, setItems] = useState(initialItems);
+export function ContentManager({ items, onChange }: { items: ContentItem[]; onChange: (items: ContentItem[]) => void }) {
   const [tab, setTab] = useState<ContentStatus>("In review");
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<{ title: string; kind: ContentItem["kind"]; track: Track; file: string }>({
@@ -46,9 +45,9 @@ export function ContentManager({ initialItems }: { initialItems: ContentItem[] }
   const upload = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim()) return;
-    setItems((list) => [
+    onChange([
       { id: `c-${Date.now()}`, title: form.title.trim(), kind: form.kind, track: form.track, status: "Draft", updated: "Just now" },
-      ...list,
+      ...items,
     ]);
     setTab("Draft");
     setOpen(false);
@@ -57,7 +56,7 @@ export function ContentManager({ initialItems }: { initialItems: ContentItem[] }
   };
 
   const submit = (id: string) => {
-    setItems((list) => list.map((i) => (i.id === id ? { ...i, status: "In review", updated: "Just now" } : i)));
+    onChange(items.map((i) => (i.id === id ? { ...i, status: "In review", updated: "Just now" } : i)));
     toast.success("Sent for review", { description: "An admin will approve it before students can see it." });
   };
 

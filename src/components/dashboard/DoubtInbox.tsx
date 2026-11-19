@@ -13,16 +13,22 @@ import {
 } from "@/components/ui/dialog";
 import type { Doubt } from "@/lib/teacher-data";
 
-export function DoubtInbox({ doubts, onAnswer }: { doubts: Doubt[]; onAnswer: (id: string) => void }) {
+export function DoubtInbox({
+  doubts,
+  answered,
+  onAnswer,
+}: {
+  doubts: Doubt[];
+  answered: number;
+  onAnswer: (id: string) => void;
+}) {
   const [current, setCurrent] = useState<Doubt | null>(null);
   const [reply, setReply] = useState("");
-  const [answered, setAnswered] = useState(0);
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     if (!current || !reply.trim()) return;
     onAnswer(current.id);
-    setAnswered((n) => n + 1);
     toast.success(`Answer sent to ${current.student}`, { description: "It also appears in the class doubt forum." });
     setCurrent(null);
     setReply("");

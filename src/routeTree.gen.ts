@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClassesRouteImport } from './routes/classes'
+import { Route as ContentRouteImport } from './routes/content'
+import { Route as DoubtsRouteImport } from './routes/doubts'
+import { Route as ExportRouteImport } from './routes/export'
+import { Route as PerformanceRouteImport } from './routes/performance'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as StudentsRouteImport } from './routes/students'
+import { Route as TestsRouteImport } from './routes/tests'
+import { Route as WeakTopicsRouteImport } from './routes/weak-topics'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContentRoute = ContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoubtsRoute = DoubtsRouteImport.update({
+  id: '/doubts',
+  path: '/doubts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExportRoute = ExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerformanceRoute = PerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsRoute = StudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestsRoute = TestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WeakTopicsRoute = WeakTopicsRouteImport.update({
+  id: '/weak-topics',
+  path: '/weak-topics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/content': typeof ContentRoute
+  '/doubts': typeof DoubtsRoute
+  '/export': typeof ExportRoute
+  '/performance': typeof PerformanceRoute
+  '/profile': typeof ProfileRoute
+  '/students': typeof StudentsRoute
+  '/tests': typeof TestsRoute
+  '/weak-topics': typeof WeakTopicsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/content': typeof ContentRoute
+  '/doubts': typeof DoubtsRoute
+  '/export': typeof ExportRoute
+  '/performance': typeof PerformanceRoute
+  '/profile': typeof ProfileRoute
+  '/students': typeof StudentsRoute
+  '/tests': typeof TestsRoute
+  '/weak-topics': typeof WeakTopicsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/content': typeof ContentRoute
+  '/doubts': typeof DoubtsRoute
+  '/export': typeof ExportRoute
+  '/performance': typeof PerformanceRoute
+  '/profile': typeof ProfileRoute
+  '/students': typeof StudentsRoute
+  '/tests': typeof TestsRoute
+  '/weak-topics': typeof WeakTopicsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/classes'
+    | '/content'
+    | '/doubts'
+    | '/export'
+    | '/performance'
+    | '/profile'
+    | '/students'
+    | '/tests'
+    | '/weak-topics'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/classes'
+    | '/content'
+    | '/doubts'
+    | '/export'
+    | '/performance'
+    | '/profile'
+    | '/students'
+    | '/tests'
+    | '/weak-topics'
+  id:
+    | '__root__'
+    | '/'
+    | '/classes'
+    | '/content'
+    | '/doubts'
+    | '/export'
+    | '/performance'
+    | '/profile'
+    | '/students'
+    | '/tests'
+    | '/weak-topics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClassesRoute: typeof ClassesRoute
+  ContentRoute: typeof ContentRoute
+  DoubtsRoute: typeof DoubtsRoute
+  ExportRoute: typeof ExportRoute
+  PerformanceRoute: typeof PerformanceRoute
+  ProfileRoute: typeof ProfileRoute
+  StudentsRoute: typeof StudentsRoute
+  TestsRoute: typeof TestsRoute
+  WeakTopicsRoute: typeof WeakTopicsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/content': {
+      id: '/content'
+      path: '/content'
+      fullPath: '/content'
+      preLoaderRoute: typeof ContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doubts': {
+      id: '/doubts'
+      path: '/doubts'
+      fullPath: '/doubts'
+      preLoaderRoute: typeof DoubtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/export': {
+      id: '/export'
+      path: '/export'
+      fullPath: '/export'
+      preLoaderRoute: typeof ExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/performance': {
+      id: '/performance'
+      path: '/performance'
+      fullPath: '/performance'
+      preLoaderRoute: typeof PerformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students': {
+      id: '/students'
+      path: '/students'
+      fullPath: '/students'
+      preLoaderRoute: typeof StudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tests': {
+      id: '/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof TestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/weak-topics': {
+      id: '/weak-topics'
+      path: '/weak-topics'
+      fullPath: '/weak-topics'
+      preLoaderRoute: typeof WeakTopicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClassesRoute: ClassesRoute,
+  ContentRoute: ContentRoute,
+  DoubtsRoute: DoubtsRoute,
+  ExportRoute: ExportRoute,
+  PerformanceRoute: PerformanceRoute,
+  ProfileRoute: ProfileRoute,
+  StudentsRoute: StudentsRoute,
+  TestsRoute: TestsRoute,
+  WeakTopicsRoute: WeakTopicsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
