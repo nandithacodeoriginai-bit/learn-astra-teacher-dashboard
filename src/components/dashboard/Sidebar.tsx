@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
   BookOpenText,
   ClipboardList,
@@ -115,6 +116,12 @@ export function Sidebar({ openDoubts }: { openDoubts: number }) {
 }
 
 export function MobileNav({ openDoubts }: { openDoubts: number }) {
+  const navRef = useRef<HTMLElement>(null);
+  const pathname = useLocation({ select: (l) => l.pathname });
+  // Keep the current page's pill visible in the sideways-scrolling menu.
+  useEffect(() => {
+    navRef.current?.querySelector<HTMLElement>('[data-status="active"]')?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [pathname]);
   return (
     <div className="-mx-5 -mt-6 mb-6 bg-sidebar px-5 pt-5 pb-3 text-sidebar-foreground md:-mx-10 md:-mt-8 md:px-10 lg:hidden" data-print-hide>
       <div className="flex items-center gap-3">
@@ -130,7 +137,7 @@ export function MobileNav({ openDoubts }: { openDoubts: number }) {
           SR
         </Link>
       </div>
-      <nav className="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
+      <nav ref={navRef} className="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 pb-1 md:-mx-10 md:px-10">
         {allItems.map((item) => (
           <Link
             key={item.to}

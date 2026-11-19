@@ -33,7 +33,7 @@ function ExportPage() {
   return (
     <>
       <PageHeader eyebrow="Export results" title={`Share ${cls.name} results`}>
-        <div data-print-hide>
+        <div className="w-full sm:w-auto" data-print-hide>
           <ClassSwitcher />
         </div>
       </PageHeader>
