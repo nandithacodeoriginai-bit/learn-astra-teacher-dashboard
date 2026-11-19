@@ -23,7 +23,7 @@ export function ClassPerformance({ tests }: { tests: TestResult[] }) {
   const total = test.distribution.reduce((s, d) => s + d.students, 0);
 
   return (
-    <section id="performance" className="panel scroll-mt-6 p-6">
+    <section id="performance" className="panel scroll-mt-6 p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="eyebrow">Class performance</p>
@@ -88,7 +88,7 @@ export function WeakTopics({
   onCreateRevision: () => void;
 }) {
   return (
-    <section className="panel-ink relative overflow-hidden p-6">
+    <section className="panel-ink relative overflow-hidden p-5 sm:p-6">
       <div className="grain pointer-events-none absolute inset-0" />
       <div className="relative">
         <div className="flex items-center justify-between">

@@ -32,7 +32,7 @@ function WeakTopicsPage() {
       </PageHeader>
       <div key={cls.id} className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
         <WeakTopics topics={weak} onCreateRevision={createRevision} />
-        <section className="panel p-6">
+        <section className="panel p-5 sm:p-6">
           <h2 className="text-xl font-semibold">Students affected</h2>
           <ul className="mt-5 space-y-4">
             {weak.map((t) => (

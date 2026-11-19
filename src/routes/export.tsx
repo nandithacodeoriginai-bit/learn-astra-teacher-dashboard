@@ -38,7 +38,7 @@ function ExportPage() {
         </div>
       </PageHeader>
 
-      <section className="panel-ink relative overflow-hidden p-6 md:p-8" data-print-hide>
+      <section className="panel-ink relative overflow-hidden p-5 sm:p-6 md:p-8" data-print-hide>
         <div className="grain pointer-events-none absolute inset-0" />
         <div className="relative flex flex-wrap items-center justify-between gap-6">
           <p className="max-w-md text-sm text-primary-foreground/75">
@@ -55,7 +55,7 @@ function ExportPage() {
         </div>
       </section>
 
-      <section className="panel mt-6 p-6">
+      <section className="panel mt-6 p-5 sm:p-6">
         <h2 className="text-xl font-semibold">Preview · {students.length} students</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-sm">

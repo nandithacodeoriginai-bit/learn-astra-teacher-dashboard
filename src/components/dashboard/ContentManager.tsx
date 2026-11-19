@@ -61,7 +61,7 @@ export function ContentManager({ items, onChange }: { items: ContentItem[]; onCh
   };
 
   return (
-    <section id="content" className="panel scroll-mt-6 p-6">
+    <section id="content" className="panel scroll-mt-6 p-5 sm:p-6">
       <div className="flex items-end justify-between gap-3">
         <div>
           <p className="eyebrow">Content manager</p>
@@ -97,17 +97,17 @@ export function ContentManager({ items, onChange }: { items: ContentItem[]; onCh
               <FileText className="size-4" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold">{i.title}</p>
+              <p className="text-sm leading-snug font-semibold sm:truncate">{i.title}</p>
               <p className="text-xs text-muted-foreground">
                 {i.kind} · {i.track} · {i.updated}
               </p>
             </div>
             {i.status === "Draft" ? (
-              <Button size="sm" variant="soft" onClick={() => submit(i.id)} aria-label={`Submit ${i.title} for review`}>
+              <Button size="sm" variant="soft" className="shrink-0" onClick={() => submit(i.id)} aria-label={`Submit ${i.title} for review`}>
                 <SendHorizontal /> Submit
               </Button>
             ) : (
-              <Badge variant={variant[i.status]}>{i.status}</Badge>
+              <Badge variant={variant[i.status]} className="shrink-0">{i.status}</Badge>
             )}
           </li>
         ))}

@@ -7,3 +7,4 @@
 - [x] Notifications list on the bell
 - [x] AI catch-up plan in the student panel: teacher edits progress details, AI suggests next steps + message
 - [x] Separate page for every sidebar option (like the reference app), Dashboard shows preview cards
+- [x] Responsive: slide-out menu on phones/tablets, no squeezed text or overlapping fields on small screens

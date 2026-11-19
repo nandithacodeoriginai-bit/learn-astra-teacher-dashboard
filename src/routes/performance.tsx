@@ -22,14 +22,14 @@ function PerformancePage() {
       </PageHeader>
       <div key={cls.id} className="space-y-6">
         <ClassPerformance tests={results} />
-        <section className="panel p-6">
+        <section className="panel p-5 sm:p-6">
           <h2 className="text-xl font-semibold">All tests</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-left text-xs text-muted-foreground">
                 <tr>
                   <th className="pb-2 font-medium">Test</th>
-                  <th className="pb-2 font-medium">Date</th>
+                  <th className="hidden pb-2 font-medium sm:table-cell">Date</th>
                   <th className="pb-2 text-right font-medium">Average</th>
                   <th className="pb-2 text-right font-medium">Pass rate</th>
                 </tr>
@@ -37,8 +37,8 @@ function PerformancePage() {
               <tbody className="divide-y divide-border">
                 {results.map((t) => (
                   <tr key={t.id}>
-                    <td className="py-3 font-semibold">{t.name}</td>
-                    <td className="py-3 text-muted-foreground">
+                    <td className="py-3 pr-3 font-semibold">{t.name}</td>
+                    <td className="hidden py-3 text-muted-foreground sm:table-cell">
                       {new Date(t.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                     </td>
                     <td className="py-3 text-right tabular-nums">{t.avg}%</td>

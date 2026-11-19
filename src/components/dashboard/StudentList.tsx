@@ -32,14 +32,14 @@ export function StudentList({
   );
 
   return (
-    <section id="students" className="panel scroll-mt-6 p-6">
+    <section id="students" className="panel scroll-mt-6 p-5 sm:p-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">Student list</p>
           <h2 className="mt-1 text-2xl font-semibold">Who's on track</h2>
           <p className="mt-1 text-xs text-muted-foreground">Tap a student to see their progress.</p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
           <button
             onClick={() => setOnlyFlagged((v) => !v)}
             aria-pressed={onlyFlagged}
@@ -53,13 +53,13 @@ export function StudentList({
             <AlertTriangle className="size-3.5" />
             {flaggedCount} inactive over 7 days
           </button>
-          <div className="relative">
+          <div className="relative min-w-40 flex-1 sm:flex-none">
             <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search student"
-              className="h-9 w-48 rounded-full bg-background pl-9"
+              className="h-9 w-full rounded-full bg-background pl-9 sm:w-48"
             />
           </div>
         </div>
@@ -69,8 +69,8 @@ export function StudentList({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b text-left text-xs text-muted-foreground">
-              <th className="pb-3 font-semibold">Student</th>
-              <th className="pb-3 font-semibold">Latest score</th>
+              <th className="pr-3 pb-3 font-semibold">Student</th>
+              <th className="pr-3 pb-3 font-semibold">Score</th>
               <th className="hidden pb-3 font-semibold sm:table-cell">Accuracy</th>
               <th className="pb-3 font-semibold">Last active</th>
             </tr>
@@ -89,7 +89,7 @@ export function StudentList({
                   onClick={() => onOpen(s)}
                   className="cursor-pointer border-b border-border/60 transition-colors last:border-0 hover:bg-background/70"
                 >
-                  <td className="py-3">
+                  <td className="py-3 pr-3">
                     <div className="flex items-center gap-3">
                       <div className="hidden size-8 shrink-0 place-items-center rounded-full bg-secondary text-xs font-bold sm:grid">
                         {initials}
@@ -106,7 +106,7 @@ export function StudentList({
                       </button>
                     </div>
                   </td>
-                  <td className="py-3">
+                  <td className="py-3 pr-3">
                     <div className="flex items-center gap-2">
                       <div className="hidden h-1.5 w-20 overflow-hidden rounded-full bg-secondary sm:block">
                         <div

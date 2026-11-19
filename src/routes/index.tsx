@@ -72,7 +72,7 @@ function DashboardPage() {
         </PreviewCard>
 
         <PreviewCard title="Class Performance" to="/performance" linkLabel="Details">
-          <p className="mb-2 text-xs text-muted-foreground">Average score per test · {cls.name}</p>
+          <p className="mb-2 text-xs text-muted-foreground">Average % score per test · {cls.name}</p>
           <ChartContainer config={chartConfig} className="aspect-auto h-56 w-full">
             <BarChart data={results} margin={{ left: -20, right: 8, top: 8 }}>
               <CartesianGrid vertical={false} strokeDasharray="3 6" />
@@ -92,7 +92,9 @@ function DashboardPage() {
                   <p className="text-sm font-semibold leading-snug">{t.topic}</p>
                   <p className="text-xs text-muted-foreground">{t.chapter}</p>
                 </div>
-                <Badge variant="danger">{t.lossPct}% marks lost</Badge>
+                <Badge variant="danger" className="shrink-0 whitespace-nowrap">
+                  {t.lossPct}% lost
+                </Badge>
               </li>
             ))}
           </ul>
@@ -116,7 +118,9 @@ function DashboardPage() {
               .map((s) => (
                 <li key={s.id} className="flex items-center justify-between py-2.5 text-sm">
                   <span className="font-semibold">{s.name}</span>
-                  <Badge variant={s.score < 40 ? "danger" : "soft"}>{s.score}%</Badge>
+                  <Badge variant={s.score < 40 ? "danger" : "soft"} className="shrink-0">
+                    {s.score}%
+                  </Badge>
                 </li>
               ))}
           </ul>
@@ -130,13 +134,15 @@ function DashboardPage() {
               {upcoming.slice(0, 3).map((t) => (
                 <li key={t.id} className="flex items-center justify-between gap-3 rounded-2xl bg-background p-3">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">{t.name}</p>
+                    <p className="text-sm leading-snug font-semibold">{t.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {className(t.classId)} ·{" "}
                       {new Date(t.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
                     </p>
                   </div>
-                  <Badge variant={t.status === "Live" ? "success" : "soft"}>{t.status}</Badge>
+                  <Badge variant={t.status === "Live" ? "success" : "soft"} className="shrink-0">
+                    {t.status}
+                  </Badge>
                 </li>
               ))}
             </ul>

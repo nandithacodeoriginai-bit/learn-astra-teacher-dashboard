@@ -32,7 +32,7 @@ function ProfilePage() {
     <>
       <PageHeader eyebrow="Profile / settings" title="Your profile" />
       <div className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
-        <form onSubmit={save} className="panel space-y-4 p-6">
+        <form onSubmit={save} className="panel space-y-4 p-5 sm:p-6">
           <h2 className="text-xl font-semibold">Details</h2>
           <div className="space-y-1.5">
             <Label htmlFor="p-name">Name</Label>
@@ -49,7 +49,7 @@ function ProfilePage() {
           <Button type="submit">Save changes</Button>
         </form>
 
-        <section className="panel p-6">
+        <section className="panel p-5 sm:p-6">
           <h2 className="text-xl font-semibold">Notifications</h2>
           <ul className="mt-4 divide-y divide-border">
             {alerts.map((a) => (

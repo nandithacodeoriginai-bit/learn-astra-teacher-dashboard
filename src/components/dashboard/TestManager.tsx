@@ -81,7 +81,7 @@ export function TestManager({
   };
 
   return (
-    <section id="tests" className="panel scroll-mt-6 p-6">
+    <section id="tests" className="panel scroll-mt-6 p-5 sm:p-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">Test manager</p>
@@ -111,7 +111,7 @@ export function TestManager({
               </span>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-semibold">{t.name}</p>
+              <p className="font-semibold leading-snug sm:truncate">{t.name}</p>
               <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
                 <span className="sm:hidden">
                   {new Date(t.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
@@ -125,7 +125,7 @@ export function TestManager({
                 </span>
               </p>
             </div>
-            <Badge variant={statusVariant[t.status]}>
+            <Badge variant={statusVariant[t.status]} className="shrink-0">
               {t.status === "Live" && <span className="mr-1.5 size-1.5 animate-pulse rounded-full bg-success" />}
               {t.status}
             </Badge>
@@ -182,16 +182,16 @@ export function TestManager({
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="grid gap-1.5">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <div className="col-span-2 grid min-w-0 gap-1.5 sm:col-span-1">
                   <Label htmlFor="t-date">Date</Label>
                   <Input id="t-date" type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
                 </div>
-                <div className="grid gap-1.5">
+                <div className="grid min-w-0 gap-1.5">
                   <Label htmlFor="t-q">Questions</Label>
                   <Input id="t-q" type="number" min={1} value={form.questions} onChange={(e) => setForm({ ...form, questions: e.target.value })} />
                 </div>
-                <div className="grid gap-1.5">
+                <div className="grid min-w-0 gap-1.5">
                   <Label htmlFor="t-d">Minutes</Label>
                   <Input id="t-d" type="number" min={5} value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} />
                 </div>

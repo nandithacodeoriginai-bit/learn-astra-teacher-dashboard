@@ -26,7 +26,7 @@ function ClassesPage() {
       />
       <ClassPicker classes={classes} activeId={classId} onSelect={setClassId} />
 
-      <section key={cls.id} className="panel rise-in mt-6 p-6">
+      <section key={cls.id} className="panel rise-in mt-6 p-5 sm:p-6">
         <p className="eyebrow">Selected class</p>
         <h2 className="mt-1 text-2xl font-semibold">
           {cls.name} · {cls.track} {cls.subject}

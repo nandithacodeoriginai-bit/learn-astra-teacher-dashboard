@@ -35,7 +35,7 @@ export function DoubtInbox({
   };
 
   return (
-    <section id="doubts" className="panel scroll-mt-6 flex flex-col p-6">
+    <section id="doubts" className="panel scroll-mt-6 flex flex-col p-5 sm:p-6">
       <div className="flex items-end justify-between">
         <div>
           <p className="eyebrow">Doubt inbox</p>
